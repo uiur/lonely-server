@@ -4,11 +4,8 @@ class ImagesController < ApplicationController
   # GET /images
   # GET /images.json
   def index
-    @images = Image.all
-
-    s3 = Aws::S3::Resource.new
-    bucket = s3.bucket(ENV['LONELY_BUCKET_NAME'])
-    @objs = bucket.objects.limit(50).to_a
+    @images = Image.order(created_at: :desc).limit(10).to_a
+    @objs = @images.map(&:s3_object)
   end
 
   # GET /images/1
@@ -29,15 +26,13 @@ class ImagesController < ApplicationController
   # POST /images.json
   def create
     @image = Image.new(image_params)
+    @image.save!
+
+    obj = @image.s3_object
+    @presigned_url = obj.presigned_url(:put, content_type: 'image/jpeg')
 
     respond_to do |format|
-      if @image.save
-        format.html { redirect_to @image, notice: 'Image was successfully created.' }
-        format.json { render :show, status: :created, location: @image }
-      else
-        format.html { render :new }
-        format.json { render json: @image.errors, status: :unprocessable_entity }
-      end
+      format.json { render json: { presigned_url: @presigned_url }, status: :created }
     end
   end
 

@@ -2,23 +2,8 @@
 
 %h1 Images
 
-%table
-  %thead
-    %tr
-      %th{colspan: '3'}
-  %tbody
-    - @images.each do |image|
-      %tr
-        %td= link_to 'Show', image
-        %td= link_to 'Edit', edit_image_path(image)
-        %td= link_to 'Destroy', image, method: :delete, data: { confirm: 'Are you sure?' }
-
-%ul
-  - @buckets.each do |bucket|
-    %li= bucket.name
-
 %ul
   - @objs.each do |obj|
-    %li= obj.key
-
-= link_to 'New Image', new_image_path
+    %li
+      - image_url = obj.presigned_url(:get)
+      = link_to image_tag(image_url), image_url
