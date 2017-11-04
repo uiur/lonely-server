@@ -6,4 +6,10 @@ class ApplicationController < ActionController::Base
 
     @user ||= User.find(session['user_id'])
   end
+
+  def require_user
+    unless current_user
+      render status: :unauthorized
+    end
+  end
 end

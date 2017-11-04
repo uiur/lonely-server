@@ -59,5 +59,6 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'aws-sdk-s3', '~> 1'
 gem 'haml'
+gem "haml-rails", "~> 1.0"
 
 gem 'rails_12factor', group: :production

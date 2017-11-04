@@ -1,4 +1,6 @@
 class Image < ApplicationRecord
+  belongs_to :space
+
   def self.bucket
     s3 = Aws::S3::Resource.new
     bucket = s3.bucket(ENV['LONELY_BUCKET_NAME'])

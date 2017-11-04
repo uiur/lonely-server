@@ -25,28 +25,14 @@ class ImagesController < ApplicationController
   # POST /images
   # POST /images.json
   def create
-    @image = Image.new(image_params)
-    @image.save!
+    space = Space.find_by!(name: params[:name])
+    @image = space.images.create!(image_params)
 
     obj = @image.s3_object
     @presigned_url = obj.presigned_url(:put, content_type: 'image/jpeg')
 
     respond_to do |format|
       format.json { render json: { presigned_url: @presigned_url }, status: :created }
-    end
-  end
-
-  # PATCH/PUT /images/1
-  # PATCH/PUT /images/1.json
-  def update
-    respond_to do |format|
-      if @image.update(image_params)
-        format.html { redirect_to @image, notice: 'Image was successfully updated.' }
-        format.json { render :show, status: :ok, location: @image }
-      else
-        format.html { render :edit }
-        format.json { render json: @image.errors, status: :unprocessable_entity }
-      end
     end
   end
 
@@ -68,6 +54,6 @@ class ImagesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def image_params
-      params.fetch(:image, {})
+      params.permit(:name).fetch(:image, {})
     end
 end

@@ -3,7 +3,7 @@ require 'uri'
 
 path = ARGV[0]
 
-res_str = `curl -X POST --header 'Accept: application/json' localhost:3000/images.json`
+res_str = `curl -X POST --header 'Accept: application/json' $HOST/images.json`
 encoded_presigned_url = JSON.parse(res_str)['presigned_url']
 presigned_url = URI.parse(encoded_presigned_url).to_s
 

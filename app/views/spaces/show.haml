@@ -1,0 +1,12 @@
+= @space.name
+
+%ul
+  - @objs.each do |obj|
+    %li
+      - image_url = obj.presigned_url(:get)
+      = link_to image_tag(image_url), image_url
+
+- if current_user
+  = current_user.email
+- else
+  = link_to 'sign in with google', '/auth/google_oauth2'
