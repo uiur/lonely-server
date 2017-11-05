@@ -7,9 +7,9 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-       - image: circleci/ruby:2.4.1-node-browsers
-       environment:
-          DATABASE_URL: "postgres://ubuntu@localhost:5432/lonely_test"
+      - image: circleci/ruby:2.4.1-node-browsers
+        environment:
+        - DATABASE_URL: "postgres://ubuntu@localhost:5432/lonely_test"
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
