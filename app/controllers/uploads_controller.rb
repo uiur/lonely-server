@@ -3,7 +3,7 @@ class UploadsController < ApplicationController
     space = Space.find_by!(name: params[:name])
 
     timestamp = Time.now
-    obj = Image.build_s3_object(timestamp)
+    obj = Image.new(space: space, timestamp: timestamp).s3_object
     @presigned_url = obj.presigned_url(:put, content_type: 'image/jpeg')
 
     render json: {
