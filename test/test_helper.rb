@@ -1,9 +1,18 @@
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
+require 'rspec/json_matcher'
 
 class ActiveSupport::TestCase
-  # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
-  fixtures :all
+  def including?(actual, expected)
+    reason = {}
+    RSpec::JsonMatcher::FuzzyComparer.compare(
+      actual,
+      expected,
+      &reason
+    )
+  end
 
-  # Add more helper methods to be used by all tests here...
+  def json_including?(body, expected)
+    including?(JSON.parse(body), expected)
+  end
 end

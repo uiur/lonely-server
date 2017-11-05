@@ -44,6 +44,7 @@ group :development, :test do
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
   gem 'dotenv-rails'
+  gem 'factory_bot_rails'
 end
 
 group :development do
@@ -58,6 +59,7 @@ end
 group :test do
   gem 'minitest-power_assert'
   gem 'timecop'
+  gem 'rspec-json_matcher'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
