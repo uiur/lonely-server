@@ -15,6 +15,9 @@ jobs:
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
       - image: circleci/postgres:9.4
+        environment:
+        - POSTGRES_USER=ubuntu
+        - POSTGRES_DB=lonely_test
 
     working_directory: ~/repo
 
