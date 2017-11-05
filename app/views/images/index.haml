@@ -1,14 +1,8 @@
-%p#notice= notice
+= render 'shared/space_nav'
 
-%h1 Images
-
-%ul
-  - @objs.each do |obj|
-    %li
-      - image_url = obj.presigned_url(:get)
+.images
+  - @images.each do |image|
+    - image_url = image.s3_object.presigned_url(:get)
+    .image
+      %p= image.timestamp.strftime('%Y/%m/%d %H:%M:%S')
       = link_to image_tag(image_url), image_url
-
-- if current_user
-  = current_user.email
-- else
-  = link_to 'sign in with google', '/auth/google_oauth2'

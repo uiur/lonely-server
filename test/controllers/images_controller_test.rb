@@ -18,6 +18,7 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     assert { image.space == @space }
   end
 
+  # GET /:name/images/latest
   test 'GET /:name/images/latest' do
     image = @space.images.create!(timestamp: Time.now)
 
@@ -37,5 +38,13 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     sign_in(@user)
     get "/#{@space.name}/images/latest", as: :json
     assert { @response.status == status_code(:forbidden) }
+  end
+
+  # GET /:name/images
+  test 'requests image list' do
+    sign_in(@owner)
+
+    get "/#{@space.name}/images"
+    assert { @response.status == status_code(:ok) }
   end
 end

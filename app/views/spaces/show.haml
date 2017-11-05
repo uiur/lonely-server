@@ -1,12 +1,4 @@
-%header.space-nav-header
-  %a.space-nav.space-nav-live{ href: space_path(@space.name) }
-    %i.fa.fa-bolt
-
-  %a.space-nav{ href: images_path(@space.name) }
-    %i.fa.fa-th-large
-
-  %a.space-nav{ href: settings_path(@space.name) }
-    %i.fa.fa-cog
+= render 'shared/space_nav'
 
 #content
   %section#live-image-container

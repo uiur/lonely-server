@@ -1,14 +1,24 @@
 class ImagesController < ApplicationController
   before_action :set_space
-  before_action :require_user, only: [:latest]
-  before_action :require_permission, only: [:latest]
+  before_action :require_user, only: [:index, :latest]
+  before_action :require_permission, only: [:index, :latest]
+
+  PER_PAGE = 20
 
   def create
     image = @space.images.create!(timestamp: Time.at(params[:timestamp].to_i))
 
-    render json: { 
+    render json: {
       timestamp: image.timestamp.to_i
     }, status: :created
+  end
+
+  def index
+    @images = @space.images.order(timestamp: :desc).limit(PER_PAGE)
+
+    respond_to do |format|
+      format.html { render :index }
+    end
   end
 
   def latest
