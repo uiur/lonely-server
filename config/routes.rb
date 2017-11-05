@@ -9,7 +9,7 @@ Rails.application.routes.draw do
       end
     end
      
-    get :settings, to: 'spaces#settings'
+    get :settings, to: 'spaces#settings', as: :settings
     post :permissions, to: 'permissions#create'
   end
 

@@ -13,7 +13,7 @@ class PermissionsControllerTest < ActionDispatch::IntegrationTest
     @target_user = FactoryBot.create(:user)
     assert { !@space.viewable_by?(@target_user) }
 
-    post "/#{@space.name}/permissions", params: { email: @target_user.email }
+    post "/#{@space.name}/permissions", params: { email: @target_user.email }, as: :json
     assert { @response.status == status_code(:created) }
 
     assert { @space.viewable_by?(@target_user)}

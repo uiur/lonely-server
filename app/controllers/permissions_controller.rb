@@ -10,7 +10,11 @@ class PermissionsController < ApplicationController
     end
 
     Permission.create!(user: @user, space: @space)
-    render status: :created
+
+    respond_to do |format|
+      format.html { redirect_to settings_path(@space.name) }
+      format.json { render status: :created, plain: 'created' }
+    end
   end
 
   private
