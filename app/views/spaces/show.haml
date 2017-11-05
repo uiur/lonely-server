@@ -1,17 +1,13 @@
-= @space.name
+%header.space-nav-header
+  %a.space-nav.space-nav-live{ href: space_path(@space.name) }
+    %i.fa.fa-bolt
 
-= link_to 'settings', settings_path(@space.name)
+  %a.space-nav{ href: images_path(@space.name) }
+    %i.fa.fa-th-large
 
-%section
-  %img#image{ src: latest_images_path(@space.name) }
+  %a.space-nav{ href: settings_path(@space.name) }
+    %i.fa.fa-cog
 
-%ul
-  - @objs.each do |obj|
-    %li
-      - image_url = obj.presigned_url(:get)
-      = link_to image_tag(image_url), image_url
-
-- if current_user
-  = current_user.email
-- else
-  = link_to 'sign in with google', '/auth/google_oauth2'
+#content
+  %section#live-image-container
+    %img#live-image{ src: latest_images_path(@space.name) }

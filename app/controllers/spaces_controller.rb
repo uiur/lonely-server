@@ -8,8 +8,6 @@ class SpacesController < ApplicationController
   end
 
   def show
-    @images = @space.images.order(timestamp: :desc).limit(10).to_a
-    @objs = @images.map(&:s3_object)
   end
 
   # GET /spaces/new

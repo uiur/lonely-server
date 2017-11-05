@@ -3,8 +3,8 @@
 const $ = require('jquery')
 const POLL_INTERVAL = 10 * 1000
 
-if ($('#image').length > 0) {
-  const image = $('#image')
+if ($('#live-image').length > 0) {
+  const image = $('#live-image')
   const basePath = image.attr('src')
 
   setInterval(() => {

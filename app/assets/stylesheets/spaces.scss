@@ -1,3 +1,29 @@
-// Place all the styles related to the spaces controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+#content {
+  display: flex;
+  align-items: center;
+  margin-top: 50px;
+}
+
+#live-image-container {
+  max-width: 640px;
+  margin: auto;
+}
+
+#live-image {
+  width: 100%;
+}
+
+.space-nav-header {
+  text-align: center;
+}
+
+.space-nav {
+  display: inline-block;
+  text-decoration: none;
+  font-size: 36px;
+  margin: 6px 8px;
+}
+
+.space-nav-live {
+  padding: 0 8px;
+}

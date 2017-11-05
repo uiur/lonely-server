@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   scope ':name' do
     resources :uploads, only: [:create], constraints: { format: :json }
-    resources :images, only: [:create], format: false do
+    resources :images, only: [:create, :index] do
       collection do
         get :latest, to: 'images#latest', as: :latest
       end
