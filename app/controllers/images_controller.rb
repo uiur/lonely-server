@@ -26,14 +26,11 @@ class ImagesController < ApplicationController
   # POST /images.json
   def create
     space = Space.find_by!(name: params[:name])
-    @image = space.images.create!(image_params)
+    image = space.images.create!(timestamp: Time.at(params[:timestamp].to_i))
 
-    obj = @image.s3_object
-    @presigned_url = obj.presigned_url(:put, content_type: 'image/jpeg')
-
-    respond_to do |format|
-      format.json { render json: { presigned_url: @presigned_url }, status: :created }
-    end
+    render json: { 
+      timestamp: image.timestamp.to_i
+    }, status: :created
   end
 
   # DELETE /images/1
@@ -44,6 +41,9 @@ class ImagesController < ApplicationController
       format.html { redirect_to images_url, notice: 'Image was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def latest
   end
 
   private

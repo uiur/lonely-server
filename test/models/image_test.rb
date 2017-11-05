@@ -7,11 +7,14 @@ class ImageTest < ActiveSupport::TestCase
   end
 
   test "#key" do
-    space = Space.create(name: 'home')
-
-    Timecop.freeze(Time.local(2017, 11, 11, 10, 10))
-    image = Image.create(space: space)
-
+    image = FactoryBot.create(:image, timestamp: Time.local(2017, 11, 11, 10, 10))
     assert { image.key == '2017-11-11/2017-11-11 10:10:00.jpg' }
+  end
+
+  test '.build_s3_object' do
+    timestamp = Time.now
+    obj = Image.build_s3_object(timestamp)
+
+    assert { obj.key == Image.key(timestamp) }
   end
 end

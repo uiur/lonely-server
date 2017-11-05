@@ -10,11 +10,15 @@ class Image < ApplicationRecord
     "#{timestamp.to_date.to_s}/#{timestamp.strftime('%Y-%m-%d %H:%M:%S')}.#{format}"
   end
 
+  def self.build_s3_object(timestamp)
+    bucket.object(key(timestamp))
+  end
+
   def s3_object
     self.class.bucket.object(key)
   end
 
   def key
-    self.class.key(created_at)
+    self.class.key(timestamp)
   end
 end

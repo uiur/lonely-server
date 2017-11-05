@@ -15,4 +15,8 @@ class ActiveSupport::TestCase
   def json_including?(body, expected)
     including?(JSON.parse(body), expected)
   end
+
+  def status_code(status)
+    Rack::Utils::SYMBOL_TO_STATUS_CODE[status]
+  end
 end

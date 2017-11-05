@@ -1,11 +1,20 @@
 Rails.application.routes.draw do
-  get '/auth/:provider/callback', to: 'sessions#create'
-  resources :images, only: [:index]
+  get 'permissions/create'
+
   resources :spaces, only: [:index, :new, :create]
 
   scope ':name' do
-    resources :images, only: [:create]
+    resources :uploads, only: [:create], constraints: {format: :json}
+    resources :images, only: [:create], constraints: {format: :json} do
+      collection do 
+        get :latest, to: 'images#latest'
+      end
+    end
+     
+    get :settings, to: 'spaces#settings'
+    post :permissions, to: 'permissions#create'
   end
 
+  get '/auth/:provider/callback', to: 'sessions#create'
   get ':name', to: 'spaces#show', as: :space
 end
