@@ -4,11 +4,11 @@ Rails.application.routes.draw do
   scope ':name' do
     resources :uploads, only: [:create], constraints: { format: :json }
     resources :images, only: [:create], format: false do
-      collection do 
-        get :latest, to: 'images#latest'
+      collection do
+        get :latest, to: 'images#latest', as: :latest
       end
     end
-     
+
     get :settings, to: 'spaces#settings', as: :settings
     post :permissions, to: 'permissions#create'
   end

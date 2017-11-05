@@ -3,7 +3,7 @@
 = link_to 'settings', settings_path(@space.name)
 
 %section
-  %img#image
+  %img#image{ src: latest_images_path(@space.name) }
 
 %ul
   - @objs.each do |obj|
