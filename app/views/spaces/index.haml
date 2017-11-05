@@ -14,3 +14,8 @@
         %td= link_to 'Show', space
 
 = link_to 'New Space', new_space_path
+
+- if current_user
+  = current_user.email
+- else
+  = link_to 'sign in with google', '/auth/google_oauth2'

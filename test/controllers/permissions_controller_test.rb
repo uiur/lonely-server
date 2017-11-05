@@ -1,9 +1,21 @@
 require 'test_helper'
 
 class PermissionsControllerTest < ActionDispatch::IntegrationTest
-  test "should get create" do
-    get permissions_create_url
-    assert_response :success
+  setup do
+    @space = FactoryBot.create(:space)
+    @owner = FactoryBot.create(:user)
+    @space.permissions.create!(user: @owner)
   end
 
+  # POST /:name/permissions
+  test 'create a permission for a user' do
+    sign_in(@owner)
+    @target_user = FactoryBot.create(:user)
+    assert { !@space.viewable_by?(@target_user) }
+
+    post "/#{@space.name}/permissions", params: { email: @target_user.email }
+    assert { @response.status == status_code(:created) }
+
+    assert { @space.viewable_by?(@target_user)}
+  end
 end

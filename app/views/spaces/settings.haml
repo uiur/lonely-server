@@ -1,0 +1,10 @@
+settings
+
+%ul 
+  - @space.permitted_users.each do |permitted_user|
+    %li
+      = permitted_user.email
+
+= form_tag permissions_path, method: :post do |f|
+  = text_field_tag :email
+  = submit_tag 'add'
