@@ -6,4 +6,8 @@ class Space < ApplicationRecord
   def viewable_by?(user)
     permitted_users.include?(user)
   end
+
+  def editable_by?(user)
+    viewable_by?(user)
+  end
 end

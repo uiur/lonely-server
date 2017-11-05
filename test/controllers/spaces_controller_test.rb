@@ -2,13 +2,24 @@ require 'test_helper'
 
 class SpacesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @space = Space.create!(name: 'home')
-    @user = User.create!(uid: 'foo', email: 'bar@gmail.com')
-    @space.permissions.create!(user: @user)
+    @space = FactoryBot.create(:space)
+    @owner = FactoryBot.create(:user)
+    @space.permissions.create!(user: @owner)
   end
 
-  test 'get latest' do
-    get '/home/images/latest', env: { user_id: @user.id }
-    assert_response :success
+  # GET /:name
+  test 'user requests showing a space' do
+    sign_in(@owner)
+
+    get "/#{@space.name}"
+    assert { @response.status == status_code(:ok) }
+  end
+
+  test 'other requests showing a space' do
+    @user = FactoryBot.create(:user)
+    sign_in(@user)
+
+    get "/#{@space.name}"
+    assert { @response.status == status_code(:forbidden) }
   end
 end

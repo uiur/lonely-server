@@ -1,16 +1,12 @@
 class SpacesController < ApplicationController
-  before_action :set_space, only: [:show, :edit, :update, :destroy, :settings]
+  before_action :set_space, only: [:show, :settings]
   before_action :require_user, only: [:show, :create, :settings]
   before_action :require_permission, only: [:show, :settings]
 
-  # GET /spaces
-  # GET /spaces.json
   def index
     @spaces = Space.all
   end
 
-  # GET /spaces/1
-  # GET /spaces/1.json
   def show
     @images = @space.images.order(created_at: :desc).limit(10).to_a
     @objs = @images.map(&:s3_object)
@@ -19,10 +15,6 @@ class SpacesController < ApplicationController
   # GET /spaces/new
   def new
     @space = Space.new
-  end
-
-  # GET /spaces/1/edit
-  def edit
   end
 
   # POST /spaces
@@ -40,30 +32,6 @@ class SpacesController < ApplicationController
         format.html { render :new }
         format.json { render json: @space.errors, status: :unprocessable_entity }
       end
-    end
-  end
-
-  # PATCH/PUT /spaces/1
-  # PATCH/PUT /spaces/1.json
-  def update
-    respond_to do |format|
-      if @space.update(space_params)
-        format.html { redirect_to @space, notice: 'Space was successfully updated.' }
-        format.json { render :show, status: :ok, location: @space }
-      else
-        format.html { render :edit }
-        format.json { render json: @space.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /spaces/1
-  # DELETE /spaces/1.json
-  def destroy
-    @space.destroy
-    respond_to do |format|
-      format.html { redirect_to spaces_url, notice: 'Space was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 
