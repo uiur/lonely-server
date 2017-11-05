@@ -1,11 +1,9 @@
 Rails.application.routes.draw do
-  get 'permissions/create'
-
   resources :spaces, only: [:index, :new, :create]
 
   scope ':name' do
-    resources :uploads, only: [:create], constraints: {format: :json}
-    resources :images, only: [:create], constraints: {format: :json} do
+    resources :uploads, only: [:create], constraints: { format: :json }
+    resources :images, only: [:create], format: false do
       collection do 
         get :latest, to: 'images#latest'
       end

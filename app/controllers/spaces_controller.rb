@@ -1,7 +1,7 @@
 class SpacesController < ApplicationController
-  before_action :set_space, only: [:show, :edit, :update, :destroy]
-  before_action :require_user, only: [:show, :create]
-  before_action :require_permission, only: [:show]
+  before_action :set_space, only: [:show, :edit, :update, :destroy, :settings]
+  before_action :require_user, only: [:show, :create, :settings]
+  before_action :require_permission, only: [:show, :settings]
 
   # GET /spaces
   # GET /spaces.json
@@ -67,6 +67,9 @@ class SpacesController < ApplicationController
     end
   end
 
+  def settings
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_space
@@ -80,7 +83,7 @@ class SpacesController < ApplicationController
 
     def require_permission
       unless @space.viewable_by?(current_user)
-        render status: :forbidden
+        render status: :forbidden, plain: 'forbidden'
       end
     end
 end
