@@ -16,5 +16,6 @@ module Lonely
     # -- all .rb files in that directory are automatically loaded.
 
     config.time_zone = ENV['TZ']
+    config.session_store :cookie_store, key: '_lonely_session', expire_after: 20.years
   end
 end
