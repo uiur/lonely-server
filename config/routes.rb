@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root to: 'top#index'
+
   resources :spaces, only: [:index, :new, :create]
 
   scope ':name' do
@@ -15,4 +17,5 @@ Rails.application.routes.draw do
 
   get '/auth/:provider/callback', to: 'sessions#create'
   get ':name', to: 'spaces#show', as: :space
+
 end
