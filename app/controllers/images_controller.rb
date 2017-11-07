@@ -22,9 +22,14 @@ class ImagesController < ApplicationController
   end
 
   def latest
-    latest_image = @space.images.order(timestamp: :desc).first
+    @image = @space.images.order(timestamp: :desc).first
 
-    redirect_to latest_image.s3_object.presigned_url(:get), status: :found
+    respond_to do |format|
+      format.html do
+        redirect_to @image.s3_object.presigned_url(:get), status: :found
+      end
+      format.json
+    end
   end
 
   private
