@@ -56,6 +56,7 @@ end
 
 group :test do
   gem 'minitest-power_assert'
+  gem 'minitest-stub_any_instance'
   gem 'timecop'
   gem 'rspec-json_matcher'
   gem 'faker'

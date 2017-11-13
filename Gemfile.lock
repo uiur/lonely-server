@@ -143,6 +143,7 @@ GEM
     minitest-power_assert (0.3.0)
       minitest
       power_assert (>= 1.1)
+    minitest-stub_any_instance (1.0.1)
     multi_json (1.12.2)
     multi_xml (0.6.0)
     multipart-post (2.0.0)
@@ -295,6 +296,7 @@ DEPENDENCIES
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
   minitest-power_assert
+  minitest-stub_any_instance
   omniauth
   omniauth-google-oauth2
   pg
