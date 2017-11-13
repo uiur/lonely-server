@@ -58,6 +58,7 @@ group :test do
   gem 'minitest-power_assert'
   gem 'timecop'
   gem 'rspec-json_matcher'
+  gem 'faker'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

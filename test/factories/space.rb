@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :space do
-    name 'uiu'
+    name { Faker::Space.planet.downcase }
   end
 end
