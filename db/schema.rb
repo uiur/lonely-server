@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171105041206) do
+ActiveRecord::Schema.define(version: 20171113122252) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20171105041206) do
     t.integer "space_id", null: false
     t.datetime "timestamp"
     t.index ["space_id"], name: "index_images_on_space_id"
+    t.index ["timestamp"], name: "index_images_on_timestamp"
   end
 
   create_table "permissions", force: :cascade do |t|
@@ -28,12 +29,15 @@ ActiveRecord::Schema.define(version: 20171105041206) do
     t.integer "space_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["space_id"], name: "index_permissions_on_space_id"
+    t.index ["user_id", "space_id"], name: "index_permissions_on_user_id_and_space_id", unique: true
   end
 
   create_table "spaces", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_spaces_on_name", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -41,6 +45,8 @@ ActiveRecord::Schema.define(version: 20171105041206) do
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["uid"], name: "index_users_on_uid", unique: true
   end
 
 end
