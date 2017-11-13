@@ -3,7 +3,8 @@
   "private": true,
   "dependencies": {
     "@rails/webpacker": "^3.0.2",
-    "jquery": "^3.2.1"
+    "jquery": "^3.2.1",
+    "moment": "^2.19.2"
   },
   "devDependencies": {
     "webpack-dev-server": "^2.9.4"
