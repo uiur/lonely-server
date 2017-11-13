@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171113122252) do
+ActiveRecord::Schema.define(version: 20171113134949) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "image_metadata", force: :cascade do |t|
+    t.integer "image_id", null: false
+    t.integer "key", null: false
+    t.text "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["image_id", "key"], name: "index_image_metadata_on_image_id_and_key", unique: true
+  end
 
   create_table "images", force: :cascade do |t|
     t.datetime "created_at", null: false

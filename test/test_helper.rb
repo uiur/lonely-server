@@ -4,6 +4,9 @@ require 'rspec/json_matcher'
 
 OmniAuth.config.test_mode = true
 
+require 'sidekiq/testing'
+Sidekiq::Testing.fake!
+
 class ActiveSupport::TestCase
   def including?(actual, expected)
     reason = {}
