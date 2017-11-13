@@ -69,3 +69,5 @@ gem "haml-rails", "~> 1.0"
 gem 'rails_12factor', group: :production
 gem 'webpacker', '~> 3.0'
 gem 'font-awesome-sass'
+
+gem 'sidekiq'
