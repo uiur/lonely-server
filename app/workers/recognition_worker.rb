@@ -7,7 +7,6 @@ class RecognitionWorker
 
     res = client.detect_faces(image: { bytes: get_body(image) })
 
-
     value = res.to_h[:face_details].present? ? res.to_h.to_json : nil
     image.image_metadata.create!(
       key: :face,

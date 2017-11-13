@@ -17,6 +17,6 @@ module Lonely
 
     config.time_zone = ENV['TZ']
     config.session_store :cookie_store, key: '_lonely_session', expire_after: 20.years
-    config.autoload_paths += %w(app/workers)
+    config.autoload_paths << "#{Rails.root}/app/workers"
   end
 end
