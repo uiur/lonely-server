@@ -1,2 +1,2 @@
 web: bin/rails server -p $PORT -e $RAILS_ENV
-worker: bundle exec sidekiq -t 15
+worker: bundle exec sidekiq -c 10
