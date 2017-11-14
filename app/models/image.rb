@@ -19,6 +19,9 @@ class Image < ApplicationRecord
 
   private
   def recognize_image
-    RecognitionWorker.perform_async(id)
+    # to reduce cost
+    if id % 5 == 0
+      RecognitionWorker.perform_async(id)
+    end
   end
 end
