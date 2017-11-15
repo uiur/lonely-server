@@ -23,9 +23,19 @@ class ApplicationController < ActionController::Base
     @user ||= User.find(session['user_id'])
   end
 
+  def set_space
+    @space = Space.find_by!(name: params[:name])
+  end
+
   def require_user
     unless current_user
       raise Error::Unauthorized
+    end
+  end
+
+  def require_permission
+    unless @space.viewable_by?(current_user)
+      raise Error::Forbidden
     end
   end
 end

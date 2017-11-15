@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171113134949) do
+ActiveRecord::Schema.define(version: 20171115130146) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,14 @@ ActiveRecord::Schema.define(version: 20171113134949) do
     t.datetime "updated_at", null: false
     t.index ["space_id"], name: "index_permissions_on_space_id"
     t.index ["user_id", "space_id"], name: "index_permissions_on_user_id_and_space_id", unique: true
+  end
+
+  create_table "space_settings", force: :cascade do |t|
+    t.bigint "space_id"
+    t.string "slack_incoming_webhook_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["space_id"], name: "index_space_settings_on_space_id", unique: true
   end
 
   create_table "spaces", force: :cascade do |t|

@@ -1,0 +1,19 @@
+%section
+  %h2 members
+  %ul
+    - @space.permitted_users.each do |permitted_user|
+      %li
+        = permitted_user.email
+
+  = form_tag permissions_path, method: :post do |f|
+    = text_field_tag :email
+    = submit_tag 'add'
+
+%section
+  %h2 slack notification
+  - setting = @space.space_setting || @space.build_space_setting
+  = form_for setting, url: setting_path(@space.name), method: :put do |f|
+    = f.label 'incoming webhook url'
+    = f.text_field :slack_incoming_webhook_url
+
+    = f.submit 'update'

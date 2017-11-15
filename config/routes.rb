@@ -11,7 +11,8 @@ Rails.application.routes.draw do
       end
     end
 
-    get :settings, to: 'spaces#settings', as: :settings
+    resource :setting, controller: :space_settings, only: [:show, :update]
+
     post :permissions, to: 'permissions#create'
   end
 

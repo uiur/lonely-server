@@ -12,6 +12,13 @@ class RecognitionWorker
       key: :face,
       value: value
     )
+
+    if value.present?
+      setting = image.space.space_setting
+      return unless setting&.slack_incoming_webhook_url
+
+      SlackNotificationWorker.perform_async(image.id)
+    end
   end
 
   def get_body(image)

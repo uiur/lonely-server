@@ -37,19 +37,8 @@ class SpacesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_space
-      @space = Space.find_by!(name: params[:name])
-    end
-
     # Never trust parameters from the scary internet, only allow the white list through.
     def space_params
       params.require(:space).permit(:name)
-    end
-
-    def require_permission
-      unless @space.viewable_by?(current_user)
-        render status: :forbidden, plain: 'forbidden'
-      end
     end
 end
