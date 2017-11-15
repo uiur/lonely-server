@@ -60,6 +60,7 @@ group :test do
   gem 'timecop'
   gem 'rspec-json_matcher'
   gem 'faker'
+  gem 'webmock'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
