@@ -1,8 +1,20 @@
 = render 'shared/space_nav'
 
-.images
-  - @images.each do |image|
-    - image_url = image.s3_object.presigned_url(:get)
-    .image
-      %p= image.timestamp.strftime('%Y/%m/%d %H:%M:%S')
-      = link_to image_tag(image_url), image_url
+%section
+  %h1 face
+  .images
+    - @recent_face_images.each do |image|
+      - image_url = image.s3_object.presigned_url(:get)
+      .image
+        %p= image.timestamp.strftime('%Y/%m/%d %H:%M:%S')
+        = link_to image_tag(image_url), image_url
+
+
+%section
+  %h1 all
+  .images
+    - @images.each do |image|
+      - image_url = image.s3_object.presigned_url(:get)
+      .image
+        %p= image.timestamp.strftime('%Y/%m/%d %H:%M:%S')
+        = link_to image_tag(image_url), image_url

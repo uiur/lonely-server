@@ -16,6 +16,12 @@ class ImagesController < ApplicationController
   def index
     @images = @space.images.order(timestamp: :desc).limit(PER_PAGE)
 
+    @recent_face_images = Image
+      .eager_load(:image_metadata)
+      .where('image_metadata is not null and image_metadata.value is not null')
+      .order(timestamp: :desc)
+      .limit(4)
+
     respond_to do |format|
       format.html { render :index }
     end
