@@ -5,10 +5,12 @@
     %section
       %h2.title Members
       %p.description Only these users can see pages.
-      %ul
-        - @space.permitted_users.each do |permitted_user|
-          %li
-            = permitted_user.email
+      %table.table
+        %tbody
+          - @space.permitted_users.each do |permitted_user|
+            %tr
+              %td
+                = permitted_user.email
 
       = form_tag permissions_path, method: :post do |f|
         = label_tag 'Email'
