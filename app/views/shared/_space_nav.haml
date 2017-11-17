@@ -1,9 +1,16 @@
-%header.space-nav-header
-  %a.space-nav.space-nav-live{ href: space_path(@space.name) }
+%nav.navbar
+  %a.nav-link.space-nav.space-nav-live{ href: space_path(@space.name),
+    class: current_page?(space_path(@space.name)) ? :current : nil }
     %i.fa.fa-bolt
+    Now
 
-  %a.space-nav{ href: images_path(@space.name) }
+  %a.nav-link.space-nav{ href: images_path(@space.name),
+    class: current_page?(images_path(@space.name)) ? :current : nil }
     %i.fa.fa-th-large
+    List
 
-  %a.space-nav{ href: setting_path(@space.name) }
+
+  %a.space-nav{ href: setting_path(@space.name),
+    class: current_page?(setting_path(@space.name)) ? :current : nil }
     %i.fa.fa-cog
+    Settings

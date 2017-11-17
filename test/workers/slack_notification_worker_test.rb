@@ -1,4 +1,5 @@
 require 'test_helper'
+
 class SlackNotificationWorkerTest < ActiveSupport::TestCase
   setup do
     @image = FactoryBot.create(:image)

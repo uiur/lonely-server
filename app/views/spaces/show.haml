@@ -1,6 +1,7 @@
 = render 'shared/space_nav'
 
-#content
-  %section#live-image-container
-    %img#live-image{ src: latest_images_path(@space.name) }
-    %p.live-image-timestamp
+.container
+  .row.align-items-center.justify-content-center.live-container
+    .col-12
+      %img#live-image{ src: latest_images_path(@space.name) }
+      %p.live-image-timestamp

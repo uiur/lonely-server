@@ -1,20 +1,22 @@
 = render 'shared/space_nav'
 
-%section
-  %h1 face
-  .images
-    - @recent_face_images.each do |image|
-      - image_url = image.s3_object.presigned_url(:get)
-      .image
-        %p= image.timestamp.strftime('%Y/%m/%d %H:%M:%S')
-        = link_to image_tag(image_url), image_url
+%main.container
+  %section.container
+    %h1 face
+    .row
+      - @recent_face_images.each do |image|
+        - image_url = image.s3_object.presigned_url(:get)
+        .col-6
+          = link_to image_tag(image_url, class: 'grid-image'), image_url
+          %p= image.timestamp.strftime('%Y/%m/%d %H:%M:%S')
 
 
-%section
-  %h1 all
-  .images
-    - @images.each do |image|
-      - image_url = image.s3_object.presigned_url(:get)
-      .image
-        %p= image.timestamp.strftime('%Y/%m/%d %H:%M:%S')
-        = link_to image_tag(image_url), image_url
+  %section.container
+    %h1 all
+
+    .row
+      - @images.each do |image|
+        - image_url = image.s3_object.presigned_url(:get)
+        .col-6
+          = link_to image_tag(image_url, class: 'grid-image'), image_url
+          %p= image.timestamp.strftime('%Y/%m/%d %H:%M:%S')

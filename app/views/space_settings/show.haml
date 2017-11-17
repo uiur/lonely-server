@@ -1,19 +1,26 @@
-%section
-  %h2 members
-  %ul
-    - @space.permitted_users.each do |permitted_user|
-      %li
-        = permitted_user.email
+= render 'shared/space_nav'
 
-  = form_tag permissions_path, method: :post do |f|
-    = text_field_tag :email
-    = submit_tag 'add'
+.container
+  %main.setting
+    %section
+      %h2.title Members
+      %p.description Only these users can see pages.
+      %ul
+        - @space.permitted_users.each do |permitted_user|
+          %li
+            = permitted_user.email
 
-%section
-  %h2 slack notification
-  - setting = @space.space_setting || @space.build_space_setting
-  = form_for setting, url: setting_path(@space.name), method: :put do |f|
-    = f.label 'incoming webhook url'
-    = f.text_field :slack_incoming_webhook_url
+      = form_tag permissions_path, method: :post do |f|
+        = label_tag 'Email'
+        = email_field_tag :email, nil, placeholder: 'email', class: 'form-control input'
+        = submit_tag 'add', class: 'btn btn-primary btn-lg btn-block'
 
-    = f.submit 'update'
+    %section
+      %h2.title Slack notification
+
+      - setting = @space.space_setting || @space.build_space_setting
+      = form_for setting, url: setting_path(@space.name), method: :put do |f|
+        = f.label 'incoming webhook url'
+        = f.text_field :slack_incoming_webhook_url, class: 'form-control input'
+
+        = f.submit 'update', class: 'btn btn-primary btn-lg btn-block'

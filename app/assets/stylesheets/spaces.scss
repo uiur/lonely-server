@@ -1,12 +1,23 @@
+.setting {
+  margin-top: 40px;
+
+  section {
+    margin-bottom: 60px;
+  }
+
+  .input {
+    margin-bottom: 12px;
+  }
+}
+
 #content {
   display: flex;
   align-items: center;
   margin-top: 50px;
 }
 
-#live-image-container {
-  max-width: 640px;
-  margin: auto;
+.live-container {
+  height: calc(100vh - 80px);
 }
 
 #live-image {
@@ -17,17 +28,34 @@
   text-align: right;
 }
 
-.space-nav-header {
-  text-align: center;
+.navbar {
+  border-bottom: 2px solid $gray-300;
+  height: 80px;
+
+  justify-content: center;
+  align-items: center;
 }
 
 .space-nav {
   display: inline-block;
   text-decoration: none;
-  font-size: 36px;
-  margin: 6px 8px;
+  color: $gray-600;
+  font-size: 24px;
+  margin: 0 16px;
+
+  &.current {
+    color: $primary;
+  }
+
+  &:hover {
+    text-decoration: none;
+  }
 }
 
 .space-nav-live {
   padding: 0 8px;
+}
+
+.btn-block {
+  border-radius: 24px;
 }

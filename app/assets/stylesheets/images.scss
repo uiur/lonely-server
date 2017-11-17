@@ -4,9 +4,13 @@
   margin-top: 50px;
 }
 
+.grid-image {
+  max-width: 100%;
+}
+
 .image {
   display: inline-block;
-  max-width: calc(50% - 8px);
+  max-width: calc(33% - 8px);
   margin: 4px;
 
   p {

@@ -75,3 +75,4 @@ gem 'webpacker', '~> 3.0'
 gem 'font-awesome-sass'
 
 gem 'sidekiq'
+gem 'bootstrap', '~> 4.0.0.beta2.1'

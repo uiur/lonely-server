@@ -10,9 +10,24 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
  *= require_self
  */
 
- @import "font-awesome-sprockets";
- @import "font-awesome";
+$container-max-widths: (
+  sm: 540px,
+  md: 640px,
+  lg: 640px,
+  xl: 640px
+);
+
+$pink: #ee6492;
+$primary: $pink;
+$input-btn-border-width: 2px;
+$grid-gutter-width: 12px;
+
+@import "font-awesome-sprockets";
+@import "font-awesome";
+@import "bootstrap";
+
+@import "spaces";
+@import "images";
