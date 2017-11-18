@@ -26,14 +26,14 @@ class SpacesControllerTest < ActionDispatch::IntegrationTest
 
   test 'other requests showing a public space' do
     sign_in(@other)
-    @space.update!(visibility: Space.visibilities[:visibility_public])
+    @space.update!(visibility: :public)
 
     get "/#{@space.name}"
     assert { @response.status == status_code(:ok) }
   end
 
   test 'guest requests showing a public space' do
-    @space.update!(visibility: Space.visibilities[:visibility_public])
+    @space.update!(visibility: :public)
 
     get "/#{@space.name}"
     assert { @response.status == status_code(:ok) }

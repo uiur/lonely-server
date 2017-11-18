@@ -1,6 +1,5 @@
 class ImagesController < ApplicationController
   before_action :set_space
-  before_action :require_user, only: [:index, :latest]
   before_action :require_viewable, only: [:index, :latest]
 
   PER_PAGE = 20

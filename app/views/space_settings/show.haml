@@ -18,6 +18,24 @@
         = submit_tag 'add', class: 'btn btn-primary btn-lg btn-block'
 
     %section
+      %h2 Visibility
+
+      = form_for @space, url: space_path(@space.name), method: :put do |f|
+        .form-check
+          %label.form-check-label
+            = f.radio_button :visibility, :private, checked: @space.visibility == 'private'
+            Private (default) - Only members can see this space and edit the settings.
+
+        .form-check
+          %label.form-check-label
+            = f.radio_button :visibility, :public, checked: @space.visibility == 'public'
+            Public - Anyone can see this space. Only members can edit the settings.
+
+        = f.submit 'update', class: 'btn btn-primary btn-lg btn-block'
+
+
+
+    %section
       %h2.title Slack notification
 
       - setting = @space.space_setting || @space.build_space_setting

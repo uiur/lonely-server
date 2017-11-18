@@ -45,7 +45,7 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
 
   test 'guest requests latest' do
     get "/#{@space.name}/images/latest", as: :json
-    assert { @response.status == status_code(:unauthorized) }
+    assert { @response.status == status_code(:forbidden) }
   end
 
   test 'normal user requests latest' do

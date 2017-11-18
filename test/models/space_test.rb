@@ -30,7 +30,7 @@ class SpaceTest < ActiveSupport::TestCase
   end
 
   test 'visibility is public' do
-    space = FactoryBot.create(:space, visibility: Space.visibilities[:visibility_public])
+    space = FactoryBot.create(:space, visibility: :public)
     user = FactoryBot.create(:user)
     space.permissions.create!(user: user)
 

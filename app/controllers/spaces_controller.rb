@@ -1,8 +1,8 @@
 class SpacesController < ApplicationController
-  before_action :set_space, only: [:show, :settings]
+  before_action :set_space, only: [:show, :update, :settings]
   before_action :require_user, only: [:create, :settings]
   before_action :require_viewable, only: [:show, :index]
-  before_action :require_editable, only: [:settings]
+  before_action :require_editable, only: [:update, :settings]
 
   def index
     @spaces = current_user.permissions.includes(:space).map(&:space)
@@ -23,7 +23,7 @@ class SpacesController < ApplicationController
 
     respond_to do |format|
       if @space.valid?
-        format.html { redirect_to space_path(@space.name), notice: 'Space was successfully created.' }
+        format.html { redirect_to space_show_path(@space.name), notice: 'Space was successfully created.' }
         format.json { render :show, status: :created, location: @space }
       else
         format.html { render :new }
@@ -32,12 +32,23 @@ class SpacesController < ApplicationController
     end
   end
 
-  def settings
+  def update
+    respond_to do |format|
+      if @space.update(update_params)
+        format.html { redirect_to setting_path(@space.name) }
+      else
+        format.html { redirect_to setting_path(@space.name) }
+      end
+    end
   end
 
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def space_params
       params.require(:space).permit(:name)
+    end
+
+    def update_params
+      params.require(:space).permit(:visibility)
     end
 end

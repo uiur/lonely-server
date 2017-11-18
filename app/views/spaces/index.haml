@@ -6,6 +6,6 @@
   %ul
     - @spaces.each do |space|
       %li
-        = link_to space.name, space_path(space.name)
+        = link_to space.name, space_show_path(space.name)
 
-  = link_to 'New Space', new_space_path, class: 'btn btn-primary'
+  = link_to 'New Space', new_space_show_path, class: 'btn btn-primary'

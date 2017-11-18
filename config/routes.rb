@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root to: 'top#index'
 
-  resources :spaces, only: [:index, :new, :create]
+  resources :spaces, only: [:index, :new, :create, :update], param: :name
 
   scope ':name' do
     resources :uploads, only: [:create], constraints: { format: :json }
@@ -17,6 +17,6 @@ Rails.application.routes.draw do
   end
 
   get '/auth/:provider/callback', to: 'sessions#create'
-  get ':name', to: 'spaces#show', as: :space
+  get ':name', to: 'spaces#show', as: :space_show
 
 end

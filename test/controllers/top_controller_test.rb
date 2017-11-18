@@ -20,7 +20,7 @@ class TopControllerTest < ActionDispatch::IntegrationTest
     get '/'
 
     assert { response.status == status_code(:found) }
-    assert { response.location == space_url(@space.name) }
+    assert { response.location == space_show_url(@space.name) }
   end
 
   test 'redirect to spaces if user has multiple permissions' do

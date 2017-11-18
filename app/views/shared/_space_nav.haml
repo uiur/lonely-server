@@ -1,6 +1,6 @@
 %nav.navbar
-  %a.nav-link.space-nav.space-nav-live{ href: space_path(@space.name),
-    class: current_page?(space_path(@space.name)) ? :current : nil }
+  %a.nav-link.space-nav.space-nav-live{ href: space_show_path(@space.name),
+    class: current_page?(space_show_path(@space.name)) ? :current : nil }
     %i.fa.fa-bolt
     Now
 
