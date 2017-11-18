@@ -1,0 +1,13 @@
+= form_with(model: space, local: true) do |form|
+  - if space.errors.any?
+    #error_explanation
+      %ul
+        - space.errors.full_messages.each do |message|
+          %li= message
+
+  .field
+    = form.label :name
+    = form.text_field :name, id: :space_name, class: 'form-control'
+
+  .actions
+    = form.submit class: 'btn btn-primary btn-lg btn-block'
