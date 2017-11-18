@@ -32,7 +32,7 @@ class ImagesController < ApplicationController
 
     respond_to do |format|
       format.html do
-        redirect_to @image.s3_object.presigned_url(:get), status: :found
+        redirect_to @image.url, status: :found
       end
       format.json
     end

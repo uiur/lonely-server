@@ -5,7 +5,7 @@
     %h1 face
     .row
       - @recent_face_images.each do |image|
-        - image_url = image.s3_object.presigned_url(:get)
+        - image_url = image.url
         .col-6
           = link_to image_tag(image_url, class: 'grid-image'), image_url
           %p= image.timestamp.strftime('%Y/%m/%d %H:%M:%S')
@@ -16,7 +16,7 @@
 
     .row
       - @images.each do |image|
-        - image_url = image.s3_object.presigned_url(:get)
+        - image_url = image.url
         .col-6
           = link_to image_tag(image_url, class: 'grid-image'), image_url
           %p= image.timestamp.strftime('%Y/%m/%d %H:%M:%S')

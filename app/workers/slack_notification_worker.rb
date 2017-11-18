@@ -8,7 +8,7 @@ class SlackNotificationWorker
     webhook_url = image.space.space_setting&.slack_incoming_webhook_url
     return unless webhook_url
 
-    payload = { text: '', attachments: [{image_url: image.s3_object.presigned_url(:get)}] }
+    payload = { text: '', attachments: [{image_url: image.url}] }
 
     conn = Faraday.new
     conn.post(
