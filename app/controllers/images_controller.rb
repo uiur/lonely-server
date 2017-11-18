@@ -2,17 +2,7 @@ class ImagesController < ApplicationController
   before_action :set_space
   before_action :require_viewable, only: [:index, :latest]
 
-  skip_before_action :verify_authenticity_token, only: [:create]
-
   PER_PAGE = 20
-
-  def create
-    image = @space.images.create!(timestamp: Time.at(params[:timestamp].to_i))
-
-    render json: {
-      timestamp: image.timestamp.to_i
-    }, status: :created
-  end
 
   def index
     @images = @space.images.order(timestamp: :desc).limit(PER_PAGE)

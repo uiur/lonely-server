@@ -7,16 +7,6 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     @space.permissions.create!(user: @owner)
   end
 
-  test 'POST /:name/images' do
-    timestamp = Time.at(Time.now.to_i)
-
-    post "/#{@space.name}/images", params: { timestamp: timestamp.to_i }, as: :json
-
-    assert { @response.status == status_code(:created) }
-
-    image = Image.find_by!(timestamp: timestamp)
-    assert { image.space == @space }
-  end
 
   # GET /:name/images/latest
   test 'GET /:name/images/latest' do

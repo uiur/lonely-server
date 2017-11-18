@@ -1,8 +1,6 @@
-class UploadsController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: [:create]
-
+class Api::UploadsController < Api::ApplicationController
   def create
-    space = Space.find_by!(name: params[:name])
+    space = current_device.space
 
     timestamp = Time.now
     obj = Image.new(space: space, timestamp: timestamp).s3_object

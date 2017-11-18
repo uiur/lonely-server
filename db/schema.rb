@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171118084302) do
+ActiveRecord::Schema.define(version: 20171118121103) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "devices", force: :cascade do |t|
+    t.bigint "space_id", null: false
+    t.string "token", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["space_id"], name: "index_devices_on_space_id"
+    t.index ["token"], name: "index_devices_on_token", unique: true
+  end
 
   create_table "image_metadata", force: :cascade do |t|
     t.integer "image_id", null: false
