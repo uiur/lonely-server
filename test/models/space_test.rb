@@ -8,4 +8,9 @@ class SpaceTest < ActiveSupport::TestCase
     assert { Space.create(name: '@@@###////').valid? == false}
     assert { Space.create(name: 'a' * 1000).valid? == false }
   end
+
+  test 'default values' do
+    space = Space.create(name: 'foobar')
+    assert { space.visibility_private? }
+  end
 end
