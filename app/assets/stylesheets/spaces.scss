@@ -42,7 +42,7 @@
   color: $gray-600;
   font-weight: bold;
   font-size: 24px;
-  margin: 0 16px;
+  margin: 0;
 
   &.current {
     color: $primary;
@@ -50,6 +50,12 @@
 
   &:hover {
     text-decoration: none;
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .space-nav {
+    margin: 0 16px;
   }
 }
 
