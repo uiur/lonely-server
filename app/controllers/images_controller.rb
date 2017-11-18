@@ -2,6 +2,8 @@ class ImagesController < ApplicationController
   before_action :set_space
   before_action :require_viewable, only: [:index, :latest]
 
+  skip_before_action :verify_authenticity_token, only: [:create]
+
   PER_PAGE = 20
 
   def create
