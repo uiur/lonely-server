@@ -1,7 +1,8 @@
 class SpacesController < ApplicationController
   before_action :set_space, only: [:show, :settings]
-  before_action :require_user, only: [:show, :index, :create, :settings]
-  before_action :require_permission, only: [:show, :settings]
+  before_action :require_user, only: [:create, :settings]
+  before_action :require_viewable, only: [:show, :index]
+  before_action :require_editable, only: [:settings]
 
   def index
     @spaces = current_user.permissions.includes(:space).map(&:space)
@@ -18,12 +19,10 @@ class SpacesController < ApplicationController
   # POST /spaces
   # POST /spaces.json
   def create
-    @space = Space.new(space_params)
+    @space = Space.create_with_user(space_params, user: current_user)
 
     respond_to do |format|
-      if @space.save
-        @space.permissions.create(user: current_user)
-
+      if @space.valid?
         format.html { redirect_to space_path(@space.name), notice: 'Space was successfully created.' }
         format.json { render :show, status: :created, location: @space }
       else

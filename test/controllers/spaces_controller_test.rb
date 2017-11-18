@@ -5,6 +5,8 @@ class SpacesControllerTest < ActionDispatch::IntegrationTest
     @space = FactoryBot.create(:space)
     @owner = FactoryBot.create(:user)
     @space.permissions.create!(user: @owner)
+
+    @other = FactoryBot.create(:user)
   end
 
   # GET /:name
@@ -16,10 +18,24 @@ class SpacesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'other requests showing a space' do
-    @user = FactoryBot.create(:user)
-    sign_in(@user)
+    sign_in(@other)
 
     get "/#{@space.name}"
     assert { @response.status == status_code(:forbidden) }
+  end
+
+  test 'other requests showing a public space' do
+    sign_in(@other)
+    @space.update!(visibility: Space.visibilities[:visibility_public])
+
+    get "/#{@space.name}"
+    assert { @response.status == status_code(:ok) }
+  end
+
+  test 'guest requests showing a public space' do
+    @space.update!(visibility: Space.visibilities[:visibility_public])
+
+    get "/#{@space.name}"
+    assert { @response.status == status_code(:ok) }
   end
 end

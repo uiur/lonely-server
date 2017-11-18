@@ -1,7 +1,7 @@
 class ImagesController < ApplicationController
   before_action :set_space
   before_action :require_user, only: [:index, :latest]
-  before_action :require_permission, only: [:index, :latest]
+  before_action :require_viewable, only: [:index, :latest]
 
   PER_PAGE = 20
 
@@ -41,11 +41,5 @@ class ImagesController < ApplicationController
   private
   def set_space
     @space = Space.find_by!(name: params[:name])
-  end
-
-  def require_permission
-    unless @space.viewable_by?(current_user)
-      raise Error::Forbidden
-    end
   end
 end

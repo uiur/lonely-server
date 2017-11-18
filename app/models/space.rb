@@ -9,11 +9,21 @@ class Space < ApplicationRecord
 
   validates :name, presence: true, format: { with: /[a-z0-9_-]+/ }, length: { maximum: 20 }
 
+  def self.create_with_user(params, user:)
+    space = Space.create(params)
+
+    if space.valid?
+      space.permissions.create!(user: user)
+    end
+
+    space
+  end
+
   def viewable_by?(user)
-    permitted_users.include?(user)
+    visibility_public? || permitted_users.include?(user)
   end
 
   def editable_by?(user)
-    viewable_by?(user)
+    permitted_users.include?(user)
   end
 end

@@ -33,8 +33,14 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def require_permission
+  def require_viewable
     unless @space.viewable_by?(current_user)
+      raise Error::Forbidden
+    end
+  end
+
+  def require_editable
+    unless @space.editable_by?(current_user)
       raise Error::Forbidden
     end
   end

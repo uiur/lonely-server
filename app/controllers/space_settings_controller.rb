@@ -1,7 +1,7 @@
 class SpaceSettingsController < ApplicationController
   before_action :set_space
   before_action :require_user
-  before_action :require_permission
+  before_action :require_editable
 
   def show
   end
