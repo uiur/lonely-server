@@ -1,7 +1,7 @@
 class PermissionsController < ApplicationController
   before_action :require_user
-  before_action :require_permission
-  
+  before_action :require_editable
+
   def create
     @user = User.find_by!(email: params[:email])
     if @space.editable_by?(@user)
@@ -19,7 +19,7 @@ class PermissionsController < ApplicationController
 
   private
 
-  def require_permission
+  def require_editable
     @space = Space.find_by!(name: params[:name])
 
     unless @space.editable_by?(current_user)
