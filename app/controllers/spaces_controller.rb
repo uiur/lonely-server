@@ -1,10 +1,10 @@
 class SpacesController < ApplicationController
   before_action :set_space, only: [:show, :settings]
-  before_action :require_user, only: [:show, :create, :settings]
+  before_action :require_user, only: [:show, :index, :create, :settings]
   before_action :require_permission, only: [:show, :settings]
 
   def index
-    @spaces = Space.all
+    @spaces = current_user.permissions.includes(:space).map(&:space)
   end
 
   def show

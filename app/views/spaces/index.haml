@@ -1,21 +1,11 @@
 %p#notice= notice
 
-%h1 Spaces
+.container
+  %h1 Spaces
 
-%table
-  %thead
-    %tr
-      %th Name
-      %th{ colspan: '3' }
-  %tbody
+  %ul
     - @spaces.each do |space|
-      %tr
-        %td= space.name
-        %td= link_to 'Show', space
+      %li
+        = link_to space.name, space_path(space.name)
 
-= link_to 'New Space', new_space_path
-
-- if current_user
-  = current_user.email
-- else
-  = link_to 'sign in with google', '/auth/google_oauth2'
+  = link_to 'New Space', new_space_path, class: 'btn btn-primary'
