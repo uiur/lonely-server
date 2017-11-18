@@ -1,7 +1,7 @@
 class SpacesController < ApplicationController
   before_action :set_space, only: [:show, :update, :settings]
-  before_action :require_user, only: [:create, :settings]
-  before_action :require_viewable, only: [:show, :index]
+  before_action :require_user, only: [:create, :settings, :index]
+  before_action :require_viewable, only: [:show]
   before_action :require_editable, only: [:update, :settings]
 
   def index

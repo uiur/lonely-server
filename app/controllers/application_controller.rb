@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
 
   rescue_from Error::Unauthorized do
     respond_to do |format|
-      format.html { redirect_to spaces_path }
+      format.html { redirect_to root_path }
       format.json { render status: :unauthorized, plain: 'unauthorized' }
     end
   end
