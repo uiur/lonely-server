@@ -10,7 +10,8 @@
     List
 
 
-  %a.space-nav{ href: setting_path(@space.name),
-    class: current_page?(setting_path(@space.name)) ? :current : nil }
-    %i.fa.fa-cog
-    Settings
+  - if @space.editable_by?(current_user)
+    %a.space-nav{ href: setting_path(@space.name),
+      class: current_page?(setting_path(@space.name)) ? :current : nil }
+      %i.fa.fa-cog
+      Settings
