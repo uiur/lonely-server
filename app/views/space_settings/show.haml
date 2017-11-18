@@ -15,7 +15,7 @@
       = form_tag permissions_path, method: :post do |f|
         = label_tag 'Email'
         = email_field_tag :email, nil, placeholder: 'email', class: 'form-control input'
-        = submit_tag 'add', class: 'btn btn-primary btn-lg btn-block'
+        = submit_tag 'Add', class: 'btn btn-primary btn-lg btn-block'
 
     %section
       %h2 Visibility
@@ -31,9 +31,7 @@
             = f.radio_button :visibility, :public, checked: @space.visibility == 'public'
             Public - Anyone can see this space. Only members can edit the settings.
 
-        = f.submit 'update', class: 'btn btn-primary btn-lg btn-block'
-
-
+        = f.submit 'Update', class: 'btn btn-primary btn-lg btn-block'
 
     %section
       %h2.title Slack notification
@@ -43,4 +41,28 @@
         = f.label 'incoming webhook url'
         = f.text_field :slack_incoming_webhook_url, class: 'form-control input'
 
-        = f.submit 'update', class: 'btn btn-primary btn-lg btn-block'
+        = f.submit 'Update', class: 'btn btn-primary btn-lg btn-block'
+
+    %section
+      %h2.title Devices
+      %p You can create new device and get a device token to upload photos.
+
+      - if @devices.present?
+        %table.table
+          %thead
+            %tr
+              %th id
+              %th token
+
+          %tbody
+            - @devices.each do |device|
+              %tr
+                %td
+                  = device.id
+                %td
+                  = device.token
+      - else
+        %p no device
+
+      = form_for Device.new, url: devices_path(@space.name) do |f|
+        = f.submit 'Create new device', class: 'btn btn-primary btn-lg btn-block'

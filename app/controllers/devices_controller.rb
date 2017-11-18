@@ -3,7 +3,7 @@ class DevicesController < ApplicationController
   before_action :require_editable
 
   def create
-    device = @space.devices.create_with_token
+    device = Device.create_with_token(space: @space)
 
     respond_to do |format|
       if device.valid?

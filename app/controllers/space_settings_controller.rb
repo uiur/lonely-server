@@ -4,6 +4,7 @@ class SpaceSettingsController < ApplicationController
   before_action :require_editable
 
   def show
+    @devices = @space.devices
   end
 
   def update
