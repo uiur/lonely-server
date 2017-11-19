@@ -223,6 +223,8 @@ GEM
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
     redis (4.0.1)
+    revision_plate (0.1.2)
+      rack
     rspec-json_matcher (0.1.6)
       awesome_print
       json
@@ -323,6 +325,7 @@ DEPENDENCIES
   rack-timeout
   rails (~> 5.1.4)
   rails_12factor
+  revision_plate
   rspec-json_matcher
   sass-rails (~> 5.0)
   selenium-webdriver
