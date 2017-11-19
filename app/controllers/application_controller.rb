@@ -7,12 +7,22 @@ class ApplicationController < ActionController::Base
   end
 
   rescue_from Error::Forbidden do
-    render status: :forbidden, plain: 'forbidden'
+    respond_to do |format|
+      format.html do
+        if current_user
+          render status: :forbidden, plain: 'forbidden'
+        else
+          redirect_to google_oauth2_path
+        end
+      end
+
+      format.json { render status: :forbidden, plain: 'forbidden' }
+    end
   end
 
   rescue_from Error::Unauthorized do
     respond_to do |format|
-      format.html { redirect_to root_path }
+      format.html { redirect_to google_oauth2_path }
       format.json { render status: :unauthorized, plain: 'unauthorized' }
     end
   end
@@ -45,5 +55,10 @@ class ApplicationController < ActionController::Base
     unless @space.editable_by?(current_user)
       raise Error::Forbidden
     end
+  end
+
+  helper_method :google_oauth2_path
+  def google_oauth2_path
+    '/auth/google_oauth2'
   end
 end
