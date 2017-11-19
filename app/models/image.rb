@@ -14,7 +14,7 @@ class Image < ApplicationRecord
   end
 
   def key(format: :jpg)
-    "#{space.name}/#{timestamp.to_date.to_s}/#{timestamp.strftime('%Y-%m-%d %H:%M:%S')}.#{format}"
+    "#{s3_namespace}#{space.name}/#{timestamp.to_date.to_s}/#{timestamp.strftime('%Y-%m-%d %H:%M:%S')}.#{format}"
   end
 
   def url
@@ -27,5 +27,9 @@ class Image < ApplicationRecord
     if id % 5 == 0
       RecognitionWorker.perform_async(id)
     end
+  end
+
+  def s3_namespace
+    ENV['LONELY_BUCKET_NAMESPACE'] || ''
   end
 end
