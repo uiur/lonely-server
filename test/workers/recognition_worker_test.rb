@@ -6,16 +6,22 @@ class RecognitionWorkerTest < ActiveSupport::TestCase
   end
 
   test 'creates image metadata' do
-    skip
-
     worker = RecognitionWorker.new
-    response = { face_details: ['foobar'] }
-    Aws::Rekognition::Client.stub_any_instance(:detect_faces, response) do
-      worker.stub(:get_body, 'foobar') do
+
+    rect = Minitest::Mock.new
+    rect.expect :left, 10
+    rect.expect :top, 20
+    rect.expect :right, 30
+    rect.expect :bottom, 40
+
+    rects = [rect]
+
+    worker.stub(:get_body, File.open(Rails.root.join('test/fixtures/human.jpg'))) do
+      Dlib::DNNFaceDetector.stub_any_instance(:detect, rects) do
         worker.perform(@image.id)
 
         assert { @image.image_metadata.where(key: :face).exists? }
-        assert { @image.image_metadata.first.value == {face_details: ['foobar']}.to_json }
+        assert { JSON.parse(@image.image_metadata.first.value).size == 1 }
       end
     end
   end
