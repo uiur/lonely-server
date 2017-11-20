@@ -38,4 +38,12 @@ class SpacesControllerTest < ActionDispatch::IntegrationTest
     get "/#{@space.name}"
     assert { @response.status == status_code(:ok) }
   end
+
+  # GET /spaces
+  test 'requests spaces' do
+    sign_in(@owner)
+    get '/spaces'
+
+    assert { @response.status = status_code(:ok) }
+  end
 end
