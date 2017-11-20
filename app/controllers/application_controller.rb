@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
         if current_user
           render status: :forbidden, plain: 'forbidden'
         else
-          redirect_to google_oauth2_path
+          redirect_to_login
         end
       end
 
@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
 
   rescue_from Error::Unauthorized do
     respond_to do |format|
-      format.html { redirect_to google_oauth2_path }
+      format.html { redirect_to_login }
       format.json { render status: :unauthorized, plain: 'unauthorized' }
     end
   end
@@ -34,6 +34,14 @@ class ApplicationController < ActionController::Base
 
     @user ||= User.find(session['user_id'])
   end
+
+  helper_method :google_oauth2_path
+
+  def google_oauth2_path
+    '/auth/google_oauth2'
+  end
+
+  protected
 
   def set_space
     @space = Space.find_by!(name: params[:name])
@@ -57,8 +65,8 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  helper_method :google_oauth2_path
-  def google_oauth2_path
-    '/auth/google_oauth2'
+  def redirect_to_login
+    session[:login_from_path] = request.fullpath
+    redirect_to google_oauth2_path
   end
 end

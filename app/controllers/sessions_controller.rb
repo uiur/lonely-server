@@ -12,6 +12,13 @@ class SessionsController < ApplicationController
     end
 
     session['user_id'] = user.id
-    redirect_to spaces_path
+
+    if session[:login_from_path]
+      path = session[:login_from_path]
+      session[:login_from_path] = nil
+      redirect_to path
+    else
+      redirect_to spaces_path
+    end
   end
 end
