@@ -6,6 +6,3 @@ Lonely is a camera app for remote people.
 ## s3
 ## development
 - `.env`
-
-## License
-A proprietary software.
