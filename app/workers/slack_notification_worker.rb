@@ -17,5 +17,18 @@ class SlackNotificationWorker
         payload: payload.to_json
       }
     )
+
+    image.space.slack_notification_logs.create
+  end
+
+  def self.should_notify?(image)
+    log = image
+      .space
+      .slack_notification_logs
+      .order(created_at: :desc)
+      .first
+
+    return true unless log
+    return image.timestamp - log.created_at >= 1.hour
   end
 end

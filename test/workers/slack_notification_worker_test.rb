@@ -14,8 +14,12 @@ class SlackNotificationWorkerTest < ActiveSupport::TestCase
     stub_request(:post, /hooks.slack.com/)
       .to_return(status: 200)
 
+    assert { @image.space.slack_notification_logs.count == 0 }
+
     worker = SlackNotificationWorker.new
     worker.perform(@image.id)
+
+    assert { @image.space.slack_notification_logs.count == 1 }
   end
 
   test 'setting does not exist' do
@@ -23,5 +27,14 @@ class SlackNotificationWorkerTest < ActiveSupport::TestCase
 
     worker = SlackNotificationWorker.new
     worker.perform(@image.id)
+  end
+
+  test '#should_notify?' do
+    image = FactoryBot.create(:image)
+
+    assert { SlackNotificationWorker.should_notify?(image) }
+
+    image.space.slack_notification_logs.create!
+    assert { SlackNotificationWorker.should_notify?(image) == false }
   end
 end

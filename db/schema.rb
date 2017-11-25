@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171118121103) do
+ActiveRecord::Schema.define(version: 20171125113624) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,14 @@ ActiveRecord::Schema.define(version: 20171118121103) do
     t.datetime "updated_at", null: false
     t.index ["space_id"], name: "index_permissions_on_space_id"
     t.index ["user_id", "space_id"], name: "index_permissions_on_user_id_and_space_id", unique: true
+  end
+
+  create_table "slack_notification_logs", force: :cascade do |t|
+    t.bigint "space_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["created_at"], name: "index_slack_notification_logs_on_created_at"
+    t.index ["space_id"], name: "index_slack_notification_logs_on_space_id"
   end
 
   create_table "space_settings", force: :cascade do |t|

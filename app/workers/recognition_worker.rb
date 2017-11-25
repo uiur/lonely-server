@@ -23,16 +23,20 @@ class RecognitionWorker
       value: value
     )
 
-    if value.present?
-      setting = image.space.space_setting
-      return unless setting&.slack_incoming_webhook_url
-
+    if value.present? && should_notify?(image)
       SlackNotificationWorker.perform_async(image.id)
     end
   end
 
   def get_body(image)
     image.s3_object.get.body
+  end
+
+  def should_notify?(image)
+    setting = image.space.space_setting
+    return false unless setting&.slack_incoming_webhook_url
+
+    SlackNotificationWorker.should_notify?(image)
   end
 
   private

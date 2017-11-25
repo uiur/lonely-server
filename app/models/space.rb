@@ -4,6 +4,7 @@ class Space < ApplicationRecord
   has_many :permitted_users, through: :permissions, source: :user
   has_many :devices
   has_one :space_setting, dependent: :destroy
+  has_many :slack_notification_logs, dependent: :destroy
 
   # private, public are reserved words. so use `visibility_` prefix.
   enum visibility: [:private, :public], _prefix: :visibility
