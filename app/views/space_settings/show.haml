@@ -3,8 +3,8 @@
 .container
   %main.setting
     %section
-      %h2.title Members
-      %p.description Only these users can see pages.
+      %h2.title= t('space_setting_members_title')
+      %p.description= t('space_setting_members_description')
       %table.table
         %tbody
           - @space.permitted_users.each do |permitted_user|
@@ -15,7 +15,7 @@
       = form_tag permissions_path, method: :post do |f|
         = label_tag 'Email'
         = email_field_tag :email, nil, placeholder: 'email', class: 'form-control input'
-        = submit_tag 'Add', class: 'btn btn-primary btn-lg btn-block'
+        = submit_tag t('space_setting_members_submit'), class: 'btn btn-primary btn-lg btn-block'
 
     %section
       %h2 Visibility

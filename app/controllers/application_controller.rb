@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
+  before_action :set_locale
 
   module Error
     class NotFound < StandardError; end
@@ -76,5 +77,11 @@ class ApplicationController < ActionController::Base
   def redirect_to_login
     session[:login_from_path] = request.fullpath
     redirect_to google_oauth2_path
+  end
+
+  private
+
+  def set_locale
+    I18n.locale = params[:locale] if params[:locale]
   end
 end
