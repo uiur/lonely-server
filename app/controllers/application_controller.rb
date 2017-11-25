@@ -2,8 +2,16 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   module Error
+    class NotFound < StandardError; end
     class Forbidden < StandardError; end
     class Unauthorized < StandardError; end
+  end
+
+  rescue_from ActiveRecord::RecordNotFound, Error::NotFound do
+    respond_to do |format|
+      format.html { render status: :not_found, plain: 'not found' }
+      format.json { render status: :not_found, plain: 'not found' }
+    end
   end
 
   rescue_from Error::Forbidden do

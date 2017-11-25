@@ -7,7 +7,6 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     @space.permissions.create!(user: @owner)
   end
 
-
   # GET /:name/images/latest
   test 'GET /:name/images/latest' do
     image = @space.images.create!(timestamp: Time.now)
@@ -45,6 +44,11 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     assert { @response.status == status_code(:forbidden) }
   end
 
+  test 'it returns 404 when there is no image' do
+    sign_in(@owner)
+    get "/#{@space.name}/images/latest"
+    assert { @response.status == status_code(:not_found) }
+  end
 
   # GET /:name/images
   test 'requests image list' do

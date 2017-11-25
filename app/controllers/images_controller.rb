@@ -19,7 +19,7 @@ class ImagesController < ApplicationController
   end
 
   def latest
-    @image = @space.images.order(timestamp: :desc).first
+    @image = @space.images.order(timestamp: :desc).first!
 
     respond_to do |format|
       format.html do
