@@ -8,6 +8,12 @@ Rails.application.routes.draw do
     post :images, to: 'images#create'
   end
 
+  namespace :api do
+    scope :slack, controller: :slack do
+      post :slash
+    end
+  end
+
   scope ':name' do
     resources :images, only: [:index] do
       collection do

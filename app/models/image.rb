@@ -17,6 +17,7 @@ class Image < ApplicationRecord
     "#{s3_namespace}#{space.name}/#{timestamp.to_date.to_s}/#{timestamp.strftime('%Y-%m-%d %H:%M:%S')}.#{format}"
   end
 
+  # returns public url
   def url
     s3_object.presigned_url(:get, expires_in: 7 * 24 * 60 * 60) # expires in a week
   end
