@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171125113624) do
+ActiveRecord::Schema.define(version: 20171202035150) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,6 +73,16 @@ ActiveRecord::Schema.define(version: 20171125113624) do
     t.datetime "updated_at", null: false
     t.integer "visibility", default: 0, null: false
     t.index ["name"], name: "index_spaces_on_name", unique: true
+  end
+
+  create_table "tokens", force: :cascade do |t|
+    t.string "secret", null: false
+    t.bigint "space_id"
+    t.integer "token_type", null: false
+    t.jsonb "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["space_id"], name: "index_tokens_on_space_id"
   end
 
   create_table "users", force: :cascade do |t|

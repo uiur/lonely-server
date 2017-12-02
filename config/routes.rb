@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   end
 
   namespace :api do
-    scope :slack, controller: :slack do
+    scope :slack, controller: :slack, as: :slack do
       post :slash
     end
   end

@@ -1,15 +1,10 @@
 class Api::SlackController < Api::ApplicationController
   skip_before_action :authenticate
-  before_action :verify_slack_token
+  before_action :verify_token
 
+  # POST /api/slack/slash?secret=:secret
   def slash
-    raise Error::Forbidden unless params[:token] == 'token'
-  end
-
-  private
-
-  def verify_slack_token
-    space = Space.find_by!(slack_slash_token: token)
+    space = @token.space
     latest_image = space.images.order(timestamp: :desc).first
 
     render json: {
@@ -18,5 +13,12 @@ class Api::SlackController < Api::ApplicationController
         { image_url: latest_image.url }
       ]
     }
+  end
+
+  private
+
+  def verify_token
+    @token = Token.find_by(secret: params[:secret], token_type: :slack_slash)
+    raise Error::Forbidden unless @token
   end
 end

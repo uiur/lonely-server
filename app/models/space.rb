@@ -28,4 +28,8 @@ class Space < ApplicationRecord
   def editable_by?(user)
     permitted_users.include?(user)
   end
+
+  def slack_slash_token
+    Token.first_or_create!(token_type: :slack_slash, secret: Token.generate_secret, space: self)
+  end
 end

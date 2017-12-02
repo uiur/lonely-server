@@ -45,6 +45,15 @@
         = f.submit 'Update', class: 'btn btn-primary btn-lg btn-block'
 
     %section
+      %h2.title Slack slash command
+      %p
+        Paste this URL at
+        = link_to 'Slash Commands settings', 'https://slack.com/apps/A0F82E8CA-slash-commands?page=1', target: '_blank'
+
+      %pre
+        = api_slack_slash_url(secret: @space.slack_slash_token.secret)
+
+    %section
       %h2.title Devices
       %p You can create new device and get a device token to upload photos.
 
