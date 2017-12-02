@@ -24,7 +24,7 @@ class Image < ApplicationRecord
   private
   def recognize_image
     # to reduce cost
-    if id % 5 == 0
+    if id % 5 == 0 || Rails.env.development?
       RecognitionWorker.perform_async(id)
     end
   end
