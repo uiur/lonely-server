@@ -5,19 +5,9 @@ class RecognitionWorker
     image = Image.find(image_id)
     return if image.image_metadata.where(key: :face).exists?
 
-    f = Tempfile.new('lonely-recognition')
-    f.binmode
-    f.write(get_body(image).read)
-    f.close
+    res = client.detect_faces(image: { bytes: get_body(image) })
 
-    img = Dlib::Image.load(f.path)
-    rects = detector.detect(img)
-
-    value =
-      if rects.size > 0
-        rects.map {|rect| {left: rect.left, top: rect.top, right: rect.right, bottom: rect.bottom } }.to_json
-      end
-
+    value = res.to_h[:face_details].present? ? res.to_h.to_json : nil
     image.image_metadata.create!(
       key: :face,
       value: value
@@ -40,8 +30,7 @@ class RecognitionWorker
   end
 
   private
-
-  def detector
-    @detector ||= Dlib::DNNFaceDetector.new('lib/mmod_human_face_detector.dat')
+  def client
+    @client ||= Aws::Rekognition::Client.new(region: 'us-west-2')
   end
 end
