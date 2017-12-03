@@ -17,4 +17,14 @@ class ImageTest < ActiveSupport::TestCase
     ENV['LONELY_BUCKET_NAMESPACE'] = ''
   end
 
+  test '#should_be_recognized?' do
+    image = FactoryBot.create(:image, timestamp: Time.local(2017, 11, 11, 12, 0), space: @space)
+    assert { image.should_be_recognized? }
+
+    image = FactoryBot.create(:image, timestamp: Time.local(2017, 11, 11, 12, 1), space: @space)
+    assert { image.should_be_recognized? == false }
+
+    image = FactoryBot.create(:image, timestamp: Time.local(2017, 11, 11, 1, 0), space: @space)
+    assert { image.should_be_recognized? == false }
+  end
 end

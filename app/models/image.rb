@@ -2,7 +2,9 @@ class Image < ApplicationRecord
   belongs_to :space
   has_many :image_metadata, class_name: 'ImageMetadata'
 
-  after_create :recognize_image
+  after_create :recognize_image_if_needed
+
+  RECOGNIZE_INTERVAL_IN_MINUTE = 10
 
   def self.bucket
     s3 = Aws::S3::Resource.new
@@ -22,12 +24,21 @@ class Image < ApplicationRecord
     s3_object.presigned_url(:get, expires_in: 7 * 24 * 60 * 60) # expires in a week
   end
 
+  # by default, it's recognized every 10 minutes
+  def should_be_recognized?
+    return true if Rails.env.development?
+
+    !in_suspend_time? && timestamp.min % RECOGNIZE_INTERVAL_IN_MINUTE == 0
+  end
+
   private
-  def recognize_image
-    # to reduce cost
-    if id % 5 == 0 || Rails.env.development?
-      RecognitionWorker.perform_async(id)
-    end
+  def recognize_image_if_needed
+    RecognitionWorker.perform_async(id) if should_be_recognized?
+  end
+
+  # most people sleeps between 0:00 and 6:59
+  def in_suspend_time?
+    0 <= timestamp.hour && timestamp.hour <= 6
   end
 
   def s3_namespace
