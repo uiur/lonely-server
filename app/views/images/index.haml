@@ -12,6 +12,8 @@
           .col-6
             = link_to image_tag(image_url, class: 'grid-image'), image_url
             %p= image.timestamp.strftime('%Y/%m/%d %H:%M:%S')
+            - if params[:debug]
+              %pre= JSON.pretty_generate(JSON.parse(image.image_metadata.first.value))
 
 
   %section.container
