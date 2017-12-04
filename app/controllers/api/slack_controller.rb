@@ -8,6 +8,7 @@ class Api::SlackController < Api::ApplicationController
     latest_image = space.images.order(timestamp: :desc).first
 
     render json: {
+      response_type: 'in_channel',
       text: '',
       attachments: [
         { image_url: latest_image.url }
