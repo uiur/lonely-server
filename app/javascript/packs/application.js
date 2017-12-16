@@ -1,7 +1,19 @@
 /* eslint no-console:0 */
 
-const $ = require('jquery')
-const moment = require('moment')
+import 'babel-polyfill'
+
+import $ from 'jquery'
+import moment from 'moment'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import ImagesRoot from './components/ImagesRoot'
+
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom'
+
 const POLL_INTERVAL = 10 * 1000
 
 if ($('#live-image').length > 0) {
@@ -23,4 +35,13 @@ if ($('#live-image').length > 0) {
 
   update()
   setInterval(update, POLL_INTERVAL)
+}
+
+if ($('#react-root').length > 0) {
+  ReactDOM.render(
+    <Router>
+      <Route path='/:name/images' component={ImagesRoot}/>
+    </Router>,
+    $('#react-root')[0],
+  )
 }

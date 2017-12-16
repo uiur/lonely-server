@@ -3,10 +3,18 @@
   "private": true,
   "dependencies": {
     "@rails/webpacker": "^3.0.2",
+    "axios": "^0.17.1",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-latest": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
     "jquery": "^3.2.1",
-    "moment": "^2.19.2"
+    "moment": "^2.19.2",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-router-dom": "^4.2.2"
   },
   "devDependencies": {
+    "standard": "^10.0.3",
     "webpack-dev-server": "^2.9.4"
   }
 }

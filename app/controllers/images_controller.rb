@@ -20,7 +20,8 @@ class ImagesController < ApplicationController
     #   .limit(4)
 
     respond_to do |format|
-      format.html { render :index }
+      format.html
+      format.json
     end
   end
 
