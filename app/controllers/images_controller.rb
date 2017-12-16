@@ -5,13 +5,19 @@ class ImagesController < ApplicationController
   PER_PAGE = 20
 
   def index
-    @images = @space.images.order(timestamp: :desc).limit(PER_PAGE)
+    step_in_minute = params[:step_in_minute]&.to_i || 1
 
-    @recent_face_images = Image
-      .eager_load(:image_metadata)
-      .where('image_metadata is not null and image_metadata.value is not null')
+    @images = @space.images
       .order(timestamp: :desc)
-      .limit(4)
+      .where('mod(extract(minute from timestamp)::integer, ?) = 0', step_in_minute)
+      .page(params[:page]&.to_i || 1)
+      .per(params[:per_page]&.to_i || PER_PAGE)
+
+    # @recent_face_images = Image
+    #   .eager_load(:image_metadata)
+    #   .where('image_metadata is not null and image_metadata.value is not null')
+    #   .order(timestamp: :desc)
+    #   .limit(4)
 
     respond_to do |format|
       format.html { render :index }

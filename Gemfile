@@ -81,3 +81,4 @@ gem 'rack-timeout'
 gem 'revision_plate', require: 'revision_plate/rails'
 
 gem 'unicorn'
+gem 'kaminari'
