@@ -3,7 +3,4 @@
 = render 'shared/space_nav'
 
 .container
-  .row.align-items-center.justify-content-center.live-container
-    .col-12
-      %img#live-image{ src: latest_images_path(@space.name) }
-      %p.live-image-timestamp
+  #react-root
