@@ -28,6 +28,8 @@ default: &default
     - .gif
     - .jpeg
     - .jpg
+    - .ts
+    - .tsx
 
 development:
   <<: *default

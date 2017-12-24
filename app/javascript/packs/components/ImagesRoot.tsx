@@ -1,8 +1,8 @@
-import React from 'react'
-import moment from 'moment'
+import * as React from 'react'
+import * as moment from 'moment'
 import request from '../lib/request'
 
-export default class ImagesRoot extends React.Component {
+export default class ImagesRoot extends React.Component<any, any> {
   constructor (props) {
     super(props)
 
@@ -21,7 +21,7 @@ export default class ImagesRoot extends React.Component {
     this.setState({ images: res.data })
   }
 
-  render (props) {
+  render () {
     return (
       <section>
         <div className='row'>
