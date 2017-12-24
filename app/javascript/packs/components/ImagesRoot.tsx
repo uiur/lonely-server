@@ -14,6 +14,7 @@ interface State {
 
 export default class ImagesRoot extends React.Component<RouteComponentProps<any>, State> {
   static PER_PAGE = 20
+  static DEFAULT_STEP = 10
 
   constructor (props) {
     super(props)
@@ -23,7 +24,7 @@ export default class ImagesRoot extends React.Component<RouteComponentProps<any>
       lastPage: 0,
       loading: false,
       allLoaded: false,
-      stepInMinute: 0
+      stepInMinute: ImagesRoot.DEFAULT_STEP
     }
   }
 
