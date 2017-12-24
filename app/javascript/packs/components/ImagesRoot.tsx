@@ -66,11 +66,15 @@ export default class ImagesRoot extends React.Component<RouteComponentProps<any>
           }
         </div>
 
-        <button
-          className='btn btn-lg btn-primary btn-block'
-          onClick={ () => this.fetchMore(this.props.match.params.name) }>
-          More
-        </button>
+        {
+          !this.state.loading &&
+            <button
+              className='btn btn-lg btn-primary btn-block'
+              onClick={ () => this.fetchMore(this.props.match.params.name) }>
+              More
+            </button>
+        }
+
       </section>
     )
   }
