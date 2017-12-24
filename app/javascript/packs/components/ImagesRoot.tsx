@@ -1,24 +1,49 @@
 import * as React from 'react'
 import * as moment from 'moment'
 import request from '../lib/request'
+import { RouteComponentProps } from 'react-router'
 
-export default class ImagesRoot extends React.Component<any, any> {
+interface State {
+  images: any[]
+  lastPage: number
+  loading: boolean
+}
+
+export default class ImagesRoot extends React.Component<RouteComponentProps<any>, State> {
   constructor (props) {
     super(props)
 
     this.state = {
-      images: []
+      images: [],
+      lastPage: 0,
+      loading: false
     }
   }
 
   componentDidMount () {
-    this.fetch(this.props.match.params.name)
+    this.fetchMore(this.props.match.params.name)
   }
 
-  async fetch (id) {
-    const res = await request.get(`/${id}/images`)
+  async fetchMore (id) {
+    if (this.state.loading) {
+      return
+    }
 
-    this.setState({ images: res.data })
+    this.setState({ loading: true })
+
+    const res = await request.get(`/${id}/images`, {
+      params: {
+        page: this.state.lastPage + 1
+      }
+    })
+
+    const images = this.state.images.concat(res.data)
+
+    this.setState({
+      images,
+      lastPage: this.state.lastPage + 1,
+      loading: false
+    })
   }
 
   render () {
@@ -40,6 +65,12 @@ export default class ImagesRoot extends React.Component<any, any> {
             })
           }
         </div>
+
+        <button
+          className='btn btn-lg btn-primary btn-block'
+          onClick={ () => this.fetchMore(this.props.match.params.name) }>
+          More
+        </button>
       </section>
     )
   }
