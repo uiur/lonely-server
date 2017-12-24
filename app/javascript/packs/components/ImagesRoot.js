@@ -1,13 +1,6 @@
 import React from 'react'
-import axios from 'axios'
 import moment from 'moment'
-
-const request = axios.create({
-  headers: {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json'
-  }
-})
+import request from '../lib/request'
 
 export default class ImagesRoot extends React.Component {
   constructor (props) {
@@ -35,9 +28,9 @@ export default class ImagesRoot extends React.Component {
           {
             this.state.images.map(image => {
               return (
-                <div key={ image.id } className='col-6'>
-                  <a href={ image.url }>
-                    <img className='grid-image' src={ image.url } />
+                <div key={image.id} className='col-6'>
+                  <a href={image.url}>
+                    <img className='grid-image' src={image.url} />
                   </a>
                   <p>
                     { moment(image.timestamp).format('lll') }
