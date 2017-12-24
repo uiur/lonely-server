@@ -8,10 +8,13 @@ interface State {
   images: any[]
   lastPage: number
   loading: boolean
+  allLoaded: boolean
   stepInMinute: number
 }
 
 export default class ImagesRoot extends React.Component<RouteComponentProps<any>, State> {
+  static PER_PAGE = 20
+
   constructor (props) {
     super(props)
 
@@ -19,6 +22,7 @@ export default class ImagesRoot extends React.Component<RouteComponentProps<any>
       images: [],
       lastPage: 0,
       loading: false,
+      allLoaded: false,
       stepInMinute: 0
     }
   }
@@ -33,7 +37,8 @@ export default class ImagesRoot extends React.Component<RouteComponentProps<any>
     this.setState({
       images: [],
       lastPage: 0,
-      loading: false
+      loading: false,
+      allLoaded: false
     }, () => {
       this.fetchMore(id)
     })
@@ -47,7 +52,8 @@ export default class ImagesRoot extends React.Component<RouteComponentProps<any>
     this.setState({ loading: true })
 
     const params = {
-      page: this.state.lastPage + 1
+      page: this.state.lastPage + 1,
+      per_page: ImagesRoot.PER_PAGE
     }
 
     if (this.state.stepInMinute > 0) {
@@ -57,13 +63,13 @@ export default class ImagesRoot extends React.Component<RouteComponentProps<any>
     }
 
     const res = await request.get(`/${id}/images`, { params })
-
     const images = this.state.images.concat(res.data)
 
     this.setState({
       images,
       lastPage: this.state.lastPage + 1,
-      loading: false
+      loading: false,
+      allLoaded: res.data.length < ImagesRoot.PER_PAGE
     })
   }
 
@@ -117,7 +123,7 @@ export default class ImagesRoot extends React.Component<RouteComponentProps<any>
         </div>
 
         {
-          !this.state.loading &&
+          !this.state.loading && !this.state.allLoaded &&
             <button
               className='btn btn-lg btn-primary btn-block'
               onClick={ () => this.fetchMore(this.props.match.params.name) }>
