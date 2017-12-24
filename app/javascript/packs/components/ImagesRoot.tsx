@@ -130,7 +130,6 @@ export default class ImagesRoot extends React.Component<RouteComponentProps<any>
               More
             </button>
         }
-
       </section>
     )
   }
