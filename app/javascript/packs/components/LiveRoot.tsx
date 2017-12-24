@@ -11,7 +11,6 @@ interface State {
   image?: any
 }
 
-
 export default class LiveRoot extends React.Component<Props, State> {
   static POLL_INTERVAL = 10 * 1000
   pollingTimer: number

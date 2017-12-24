@@ -19,8 +19,8 @@ if ($('#react-root').length > 0) {
   ReactDOM.render(
     <Router>
       <div>
+        <Route exact path='/:name' component={LiveRoot} />
         <Route path='/:name/images' component={ImagesRoot} />
-        <Route path='/:name' component={LiveRoot} />
       </div>
     </Router>,
     $('#react-root')[0]
