@@ -26,5 +26,10 @@ class ImageTest < ActiveSupport::TestCase
 
     image = FactoryBot.create(:image, timestamp: Time.local(2017, 11, 11, 1, 0), space: @space)
     assert { image.should_be_recognized? == false }
+
+    ENV['LONELY_DISABLE_WORKER'] = '1'
+    image = FactoryBot.create(:image, timestamp: Time.local(2017, 11, 11, 12, 0), space: @space)
+    assert { image.should_be_recognized? == false }
+    ENV['LONELY_DISABLE_WORKER'] = nil
   end
 end

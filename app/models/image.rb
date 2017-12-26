@@ -26,6 +26,7 @@ class Image < ApplicationRecord
 
   # by default, it's recognized every 10 minutes
   def should_be_recognized?
+    return false if ENV['LONELY_DISABLE_WORKER']
     return true if Rails.env.development?
 
     !in_suspend_time? && timestamp.min % RECOGNIZE_INTERVAL_IN_MINUTE == 0

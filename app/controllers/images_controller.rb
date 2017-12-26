@@ -13,12 +13,6 @@ class ImagesController < ApplicationController
       .page(params[:page]&.to_i || 1)
       .per(params[:per_page]&.to_i || PER_PAGE)
 
-    # @recent_face_images = Image
-    #   .eager_load(:image_metadata)
-    #   .where('image_metadata is not null and image_metadata.value is not null')
-    #   .order(timestamp: :desc)
-    #   .limit(4)
-
     respond_to do |format|
       format.html
       format.json
